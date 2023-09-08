@@ -1,0 +1,28 @@
+import { createConnection, Connection } from 'typeorm';
+
+const dbConfig = {
+  type: 'mysql',
+  host: 'localhost',
+  port: 3306,
+  username: 'root',
+  password: '',
+  database: 'personagens',
+  entities: [__dirname + '/entities/*.ts'], // Certifique-se de que o caminho corresponde à localização de suas entidades
+  migrations: [__dirname + '/migrations/*.ts'], // Certifique-se de que o caminho corresponde à localização de suas migrações
+  cli: {
+    migrationsDir: 'src/migrations',
+  },
+};
+
+let connection: Connection;
+
+export const connectDatabase = async () => {
+  try {
+    connection = await createConnection(dbConfig);
+    console.log('Conexão com o banco de dados estabelecida com sucesso.');
+  } catch (error) {
+    console.error('Erro ao conectar ao banco de dados:', error);
+  }
+};
+
+export default connection;
