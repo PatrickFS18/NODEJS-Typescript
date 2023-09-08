@@ -7,7 +7,7 @@ import { personagensRoutes } from './routes/route'; // Importe o roteador dos pe
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Configure o Express para usar o mecanismo de modelo Handlebars
+// Configure o Express para usar o mecanismo de modelo Handlebar
 app.engine('handlebars', exphbs);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
