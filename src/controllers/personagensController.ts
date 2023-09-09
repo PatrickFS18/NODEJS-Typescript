@@ -38,20 +38,19 @@ class firstController {
   public async inserirPersonagens(req: Request, res: Response) {
     const characters = prisma.character.findMany();
 
-    const {
-      name,
-      species,
-      status,
-      type,
-      gender,
-      originName,
-      originLink,
-      locationName,
-      locationLink,
-      image,
-      created,
-      url,
-    } = req.body;
+    const id = req.body.id;
+const name = req.body.name;
+const species = req.body.species;
+const status = req.body.status;
+const type = req.body.type;
+const gender = req.body.gender;
+const originName = req.body.originName;
+const originLink = req.body.originLink;
+const locationName = req.body.locationName;
+const locationLink = req.body.locationLink;
+const image = req.body.image;
+const created = req.body.created;
+const url = req.body.url;
 
     const newCharacter = prisma.character.create({
       data: {
@@ -90,24 +89,22 @@ public async editarPersonagens(req: Request, res: Response) {
   const characters = prisma.character.findMany();
 
   const id = req.body.id;
-  const {
-    name,
-    species,
-    status,
-    type,
-    gender,
-    originName,
-    originLink,
-    locationName,
-    locationLink,
-    image,
-    created,
-    url,
-  } = req.body;
+  const name = req.body.name;
+  const species = req.body.species;
+  const status = req.body.status;
+  const type = req.body.type;
+  const gender = req.body.gender;
+  const originName = req.body.originName;
+  const originLink = req.body.originLink;
+  const locationName = req.body.locationName;
+  const locationLink = req.body.locationLink;
+  const image = req.body.image;
+  const created = req.body.created;
+  const url = req.body.url;
 
 
   try {
-    const updatedCharacter = prisma.character.update({
+    const updatedCharacter = await prisma.character.update({
       where: { id: parseInt(id) },
       data: {
         name,

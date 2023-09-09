@@ -72,22 +72,37 @@
             <label for="name">Nome:</label>
             <input type="text" name="name" id="name" value="<%= character.name %>" placeholder="Nome atual: <%= character.name %>">
             <label for="status">Status:</label>
+
             <input type="text" name="status" id="status" value="<%= character.status %>" placeholder="Status atual: <%= character.status %>">
             <label for="species">Espécie:</label>
+
             <input type="text" name="species" id="species" value="<%= character.species %>" placeholder="Espécie atual: <%= character.species %>">
             <label for="type">Tipo:</label>
+
             <input type="text" name="type" id="type" value="<%= character.type %>" placeholder="Tipo atual: <%= character.type %>">
             <label for="gender">Gênero:</label>
+
             <input type="text" name="gender" id="gender" value="<%= character.gender %>" placeholder="Gênero atual: <%= character.gender %>">
-            <label for="origin">Origem:</label>
-            <input type="text" name="origin" id="origin" value="<%= character.originName %>" placeholder="Origem atual: <%= character.originName %>">
-            <label for="location">Localização:</label>
-            <input type="text" name="location" id="location" value="<%= character.locationName %>" placeholder="Localização atual: <%= character.locationName %>">
+            <label for="origin">Origem nome:</label>
+
+            <input type="text" name="originName" id="origin" value="<%= character.originName %>" placeholder="Origem atual: <%= character.originName %>">
+            <label for="origin">Origem link:</label>
+
+            <input type="text" name="originLink" id="origin" value="<%= character.originLink %>" placeholder="Origem atual: <%= character.originLink %>">
+            <label for="location">Localização nome:</label>
+
+            <input type="text" name="locationName" id="location" value="<%= character.locationName %>" placeholder="Localização atual: <%= character.locationName %>">
+            <label for="location">Localização link:</label>
+            
+            <input type="text" name="locationLink" id="location" value="<%= character.locationLink %>" placeholder="Localização atual: <%= character.locationName %>">
             <label for="image">URL da Imagem:</label>
+
             <input type="text" name="image" id="image" value="<%= character.image %>" placeholder="URL da imagem atual: <%= character.image %>">
             <label for="created">Data de Criação:</label>
+
             <input type="text" name="created" id="created" value="<%= character.created %>" placeholder="Data de criação atual: <%= character.created %>">
             <label for="url">URL:</label>
+
             <input type="text" name="url" id="url" value="<%= character.url %>" placeholder="URL atual: <%= character.url %>">
             <button type="submit">Salvar Alterações</button>
         </form>
