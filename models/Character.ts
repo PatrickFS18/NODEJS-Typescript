@@ -1,14 +1,9 @@
-// src/models/Character.ts
-
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
-  JoinColumn,
   CreateDateColumn,
 } from 'typeorm';
-import { Location } from './Location';
 
 @Entity()
 export class Character {
@@ -30,11 +25,19 @@ export class Character {
   @Column()
   gender: string;
 
+  // Colunas para informações de origem
   @Column()
-  origin: Location;
+  originName: string;   // Nome da origem
 
   @Column()
-  location: Location;
+  originLink: string;   // Link para a origem
+
+  // Colunas para informações de localização
+  @Column()
+  locationName: string;   // Nome da localização
+
+  @Column()
+  locationLink: string;   // Link para a localização
 
   @Column()
   image: string;

@@ -1,13 +1,18 @@
-import express from 'express';
-import path from 'path';
+import * as dotenv from 'dotenv';
+//config .env
+dotenv.config();
 import { insertCharacters } from './utils/fetchCharacters';
 import { personagensRoutes } from './routes/route'; // Importe o roteador dos personagens
+import express from 'express';
+import path from 'path';
 
-const app = express();
 const port = process.env.PORT || 3000;
 
-app.set('view engine', 'ejs');
+const app = express();
+
 app.set('views', path.join(__dirname, 'views'));
+
+app.set('view engine', 'ejs');
 
 app.use(express.json());
 

@@ -1,0 +1,32 @@
+// schema.prisma
+
+// Modelo para a tabela Character
+model Character {
+  id           Int       @id @default(autoincrement())
+  name         String
+  status       String
+  species      String
+  type         String
+  gender       String
+  originName   String    
+  originLink   String    
+  locationName String    
+  locationLink String    
+  image        String
+  created      DateTime
+  url          String
+}
+
+// Configuração do banco de dados MySQL
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") 
+}
+
+// Configuração do generator Prisma Client
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}

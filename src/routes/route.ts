@@ -1,27 +1,24 @@
 import { Router } from 'express';
-import mysql from 'mysql2/promise';
+import { PrismaClient } from '../../prisma/generated/client'; 
 
 const router = Router();
 
-const dbConfig ={
-  host: 'localhost',
-  user: 'root',
-  password: '', 
-  database: 'personagens',
-};
+const prisma = new PrismaClient();
+
 router.get('/', async (req, res) => {
   try {
+    // Use o Prisma Client para buscar todos os personagens
+    const characters = await prisma.character.findMany();
 
-    const connection = await mysql.createConnection(dbConfig);
-
-    const [rows] = await connection.execute('SELECT * FROM `characters`');
-
-    await connection.end();
-
-    res.render('allCharacters', { characters: rows });
+    // Renderize a página 'allCharacters' e passe os personagens para ela
+    res.render('allCharacters', { characters });
   } catch (error) {
     console.error('Erro ao buscar personagens:', error);
     res.status(500).send('Erro ao buscar personagens');
+  } finally {
+    // Certifique-se de desconectar o Prisma Client após o uso
+    await prisma.$disconnect();
   }
 });
+
 export { router as personagensRoutes };
