@@ -4,61 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Personagem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .character-info {
+            margin-bottom: 20px;
+        }
+
+        .character-info h2 {
+            margin-top: 0;
+        }
+
+        .character-info img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+
+        .edit-form {
+            margin-top: 20px;
+        }
+
+        .edit-form label {
+            font-weight: bold;
+        }
+
+        .edit-form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .edit-form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .edit-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h2>Editar Personagem</h2>
-
-    <form action="/characters/update/<%= character.id %>" method="POST">
-        <div>
-    <label for="name">Nome:</label>
-    <input type="text" id="name" name="name" value="<%= character.name %>" required>
-  </div>
-  <div>
-    <label for="status">Status:</label>
-    <input type="text" id="status" name="status" value="<%= character.status %>" required>
-  </div>
-  <div>
-    <label for="species">Espécie:</label>
-    <input type="text" id="species" name="species" value="<%= character.species %>" required>
-  </div>
-  <div>
-    <label for="type">Tipo:</label>
-    <input type="text" id="type" name="type" value="<%= character.type %>">
-  </div>
-  <div>
-    <label for="gender">Gênero:</label>
-    <input type="text" id="gender" name="gender" value="<%= character.gender %>" required>
-  </div>
-  <div>
-    <label for="originName">Nome de Origem:</label>
-    <input type="text" id="originName" name="originName" value="<%= character.originName %>" required>
-  </div>
-  <div>
-    <label for="originLink">Link de Origem:</label>
-    <input type="text" id="originLink" name="originLink" value="<%= character.originLink %>" required>
-  </div>
-  <div>
-    <label for="locationName">Nome de Localização:</label>
-    <input type="text" id="locationName" name="locationName" value="<%= character.locationName %>" required>
-  </div>
-  <div>
-    <label for="locationLink">Link de Localização:</label>
-    <input type="text" id="locationLink" name="locationLink" value="<%= character.locationLink %>" required>
-  </div>
-  <div>
-    <label for="image">URL da Imagem:</label>
-    <input type="text" id="image" name="image" value="<%= character.image %>" required>
-  </div>
-  <div>
-    <label for="created">Data de Criação:</label>
-    <input type="text" id="created" name="created" value="<%= character.created %>" required>
-  </div>
-  <div>
-    <label for="url">URL:</label>
-    <input type="text" id="url" name="url" value="<%= character.url %>" required>
-  </div>
-  <button type="submit">Salvar</button>
-</form>
-
+    <div class="container">
+        <div class="character-info">
+            <h2>Editar Personagem</h2>
+            <img src="<%= character.image %>" alt="<%= character.name %>" />
+            <h3><%= character.name %></h3>
+        </div>
+        <form action="/editCharacter" method="POST" class="edit-form">
+            <label for="name">Nome:</label>
+            <input type="text" name="name" id="name" value="<%= character.name %>" placeholder="Nome atual: <%= character.name %>">
+            <label for="status">Status:</label>
+            <input type="text" name="status" id="status" value="<%= character.status %>" placeholder="Status atual: <%= character.status %>">
+            <label for="species">Espécie:</label>
+            <input type="text" name="species" id="species" value="<%= character.species %>" placeholder="Espécie atual: <%= character.species %>">
+            <label for="type">Tipo:</label>
+            <input type="text" name="type" id="type" value="<%= character.type %>" placeholder="Tipo atual: <%= character.type %>">
+            <label for="gender">Gênero:</label>
+            <input type="text" name="gender" id="gender" value="<%= character.gender %>" placeholder="Gênero atual: <%= character.gender %>">
+            <label for="origin">Origem:</label>
+            <input type="text" name="origin" id="origin" value="<%= character.originName %>" placeholder="Origem atual: <%= character.originName %>">
+            <label for="location">Localização:</label>
+            <input type="text" name="location" id="location" value="<%= character.locationName %>" placeholder="Localização atual: <%= character.locationName %>">
+            <label for="image">URL da Imagem:</label>
+            <input type="text" name="image" id="image" value="<%= character.image %>" placeholder="URL da imagem atual: <%= character.image %>">
+            <label for="created">Data de Criação:</label>
+            <input type="text" name="created" id="created" value="<%= character.created %>" placeholder="Data de criação atual: <%= character.created %>">
+            <label for="url">URL:</label>
+            <input type="text" name="url" id="url" value="<%= character.url %>" placeholder="URL atual: <%= character.url %>">
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
 </body>
 </html>

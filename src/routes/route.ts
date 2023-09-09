@@ -1,20 +1,20 @@
 import { Router } from 'express';
 import { PrismaClient } from '../../prisma/generated/client'; 
-import { editarPersonagens, listarPersonagens,adicionarPersonagens,deletarPersonagens, initPageEditar } from '../controllers/personagensController';
-
+import { FirstController } from '../controllers/personagensController';
 const router = Router();
 const prisma = new PrismaClient();
 
 
-router.get('/', async (req, res) => listarPersonagens);
+router.get('/', FirstController.listarPersonagens);
 
-router.post('/editPage', initPageEditar);
+//router.post('/editPage', initPageEditar);
+router.post('/editPage', FirstController.EditPageInit);
 
-router.post('/characters', async (req, res) => adicionarPersonagens);
+router.post('/characters', FirstController.inserirPersonagens);
 
-router.put('/edit/:id', async (req, res) => editarPersonagens);
+router.post('/editCharacter', FirstController.editarPersonagens);
 
-router.delete('/delete', async (req, res) => deletarPersonagens);
+router.delete('/delete', FirstController.deletarPersonagens);
 
 
 export { router as personagensRoutes };

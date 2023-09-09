@@ -2034,7 +2034,7 @@ export namespace Prisma {
     locationName: string
     locationLink: string
     image: string
-    created: Date | string
+    created?: Date | string
     url: string
   }
 
@@ -2050,7 +2050,7 @@ export namespace Prisma {
     locationName: string
     locationLink: string
     image: string
-    created: Date | string
+    created?: Date | string
     url: string
   }
 
@@ -2097,7 +2097,7 @@ export namespace Prisma {
     locationName: string
     locationLink: string
     image: string
-    created: Date | string
+    created?: Date | string
     url: string
   }
 
