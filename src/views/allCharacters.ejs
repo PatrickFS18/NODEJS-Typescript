@@ -6,16 +6,15 @@
     <title>Lista de Personagens</title>
     <style>
         body {
-            background-image: url('/background.jpg'); /* Substitua pelo caminho da sua imagem de fundo */
-            background-size: cover;
+            background-size: 100%;
             background-position: center;
             font-family: Arial, sans-serif;
         }
 
         .navbar {
-            background-color: #333;
+
             color: #fff;
-            padding: 10px;
+            padding: 40px;
         }
 
         .container {
@@ -32,7 +31,7 @@
 
         table th,
         table td {
-            padding: 10px;
+            padding: 5px;
             text-align: left;
             border-bottom: 1px solid #ccc;
         }
@@ -61,15 +60,79 @@
         table td a:hover {
             text-decoration: underline;
         }
+        #gradient
+{
+  width: 100%;
+  height: 200px;
+  padding: 0px;
+  margin: 0px;
+}
     </style>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+     <script>
+    var colors = new Array(
+    [62,35,255],
+    [60,255,60],
+    [255,35,98],
+    [45,175,230],
+    [255,0,255],
+    [255,128,0]);
+
+var step = 0;
+var colorIndices = [0,1,2,3];
+var gradientSpeed = 0.002;
+
+function updateGradient() {
+    if ( $===undefined ) return;
+
+    var c0_0 = colors[colorIndices[0]];
+    var c0_1 = colors[colorIndices[1]];
+    var c1_0 = colors[colorIndices[2]];
+    var c1_1 = colors[colorIndices[3]];
+
+    var istep = 1 - step;
+    var r1 = Math.round(istep * c0_0[0] + step * c0_1[0]);
+    var g1 = Math.round(istep * c0_0[1] + step * c0_1[1]);
+    var b1 = Math.round(istep * c0_0[2] + step * c0_1[2]);
+    var color1 = "rgb("+r1+","+g1+","+b1+")";
+
+    var r2 = Math.round(istep * c1_0[0] + step * c1_1[0]);
+    var g2 = Math.round(istep * c1_0[1] + step * c1_1[1]);
+    var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
+    var color2 = "rgb("+r2+","+g2+","+b2+")";
+
+    $('#gradient').css({
+        background: "-webkit-gradient(linear, left top, right top, from("+color1+"), to("+color2+"))"
+    }).css({
+        background: "-moz-linear-gradient(left, "+color1+" 0%, "+color2+" 100%)"
+    });
+
+    // Altere a cor da fonte (font color) do elemento <h1> com o ID "title"
+    $('#title').css('color', color1);
+
+    step += gradientSpeed;
+    if (step >= 1) {
+        step %= 1;
+        colorIndices[0] = colorIndices[1];
+        colorIndices[2] = colorIndices[3];
+
+        colorIndices[1] = (colorIndices[1] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
+        colorIndices[3] = (colorIndices[3] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
+    }
+}
+
+setInterval(updateGradient, 10);
+</script>
 </head>
-<body>
-    <div class="navbar">
-        <h1>Minha Aplicação de Personagens</h1>
+
+<body id="gradient-body">
+    <div class="navbar" style="background-color: blanchedalmond;width: 136%;text-align: center;">
+
+      <h1 id="title" style="display: inline;"> Rick and Morty</h1>
     </div>
     <div class="container">
        
-      <h2>Lista de Personagens</h2>
+      <h2 style="text-align: center;width: 136%;">Lista de Personagens</h2>
 
       <% if (characters && characters.length > 0) { %>
           <table>
@@ -81,28 +144,48 @@
                       <th>Espécie</th>
                       <th>Tipo</th>
                       <th>Gênero</th>
-                      <th>ID de Origem</th>
-                      <th>ID de Localização</th>
+                      <th>Nome de Origem</th>
+                      <th>Link de Origem</th>
+                      <th>Link da Localização</th>
+                      <th>Nome da Localização</th>
                       <th>Imagem</th>
                       <th>Data de Criação</th>
                       <th>URL</th>
+                      <th>Ação</th>
+                      <th>Ação</th>
                   </tr>
               </thead>
               <tbody>
                   <% characters.forEach((character) => { %>
-                      <tr>
-                          <td><%= character.id %></td>
-                          <td><%= character.name %></td>
-                          <td><%= character.status %></td>
-                          <td><%= character.species %></td>
-                          <td><%= character.type %></td>
-                          <td><%= character.gender %></td>
-                          <td><%= character.origin_id %></td>
-                          <td><%= character.location_id %></td>
-                          <td><img src="<%= character.image %>" alt="<%= character.name %>" /></td>
-                          <td><%= character.created %></td>
-                          <td><a href="<%= character.url %>"><%= character.url %></a></td>
-                      </tr>
+                    <tr>
+                      <td><%= character.id %></td>
+                      <td><%= character.name %></td>
+                      <td><%= character.status %></td>
+                      <td><%= character.species %></td>
+                      <td><%= character.type %></td>
+                      <td><%= character.gender %></td>
+                      <td><%= character.originName %></td>
+                      <td><%= character.originLink %></td>
+                      <td><%= character.locationName %></td>
+                      <td><%= character.locationLink %></td>
+                      <td><img src="<%= character.image %>" alt="<%= character.name %>" /></td>
+                      <td><%= character.created %></td>
+                      <td><a href="<%= character.url %>"><%= character.url %></a></td>
+                      <td>
+                        <!-- form para editar um personagem -->
+                      <form action="/editPage" method="POST">
+                      <input type="hidden" name="id" value="<%= character.id %>"> 
+                       <button type="submit" class="btn-edit">Editar</button>
+                      </form>
+                      </td>
+                      <td>
+                        <!-- form para excluir um personagem -->
+                        <form action="/delete" method="POST" class="form-delete">
+                          <input type="hidden" name="id" value="<%= character.id %>"> 
+                          <button type="submit" class="btn-delete">Excluir</button>
+                        </form>
+                      </td>
+                    </tr>
                   <% }); %>
               </tbody>
           </table>

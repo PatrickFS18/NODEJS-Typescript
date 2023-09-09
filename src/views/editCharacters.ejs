@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Personagem</title>
+</head>
+<body>
+    <h2>Editar Personagem</h2>
+
+    <form action="/characters/update/<%= character.id %>" method="POST">
+        <div>
+    <label for="name">Nome:</label>
+    <input type="text" id="name" name="name" value="<%= character.name %>" required>
+  </div>
+  <div>
+    <label for="status">Status:</label>
+    <input type="text" id="status" name="status" value="<%= character.status %>" required>
+  </div>
+  <div>
+    <label for="species">Espécie:</label>
+    <input type="text" id="species" name="species" value="<%= character.species %>" required>
+  </div>
+  <div>
+    <label for="type">Tipo:</label>
+    <input type="text" id="type" name="type" value="<%= character.type %>">
+  </div>
+  <div>
+    <label for="gender">Gênero:</label>
+    <input type="text" id="gender" name="gender" value="<%= character.gender %>" required>
+  </div>
+  <div>
+    <label for="originName">Nome de Origem:</label>
+    <input type="text" id="originName" name="originName" value="<%= character.originName %>" required>
+  </div>
+  <div>
+    <label for="originLink">Link de Origem:</label>
+    <input type="text" id="originLink" name="originLink" value="<%= character.originLink %>" required>
+  </div>
+  <div>
+    <label for="locationName">Nome de Localização:</label>
+    <input type="text" id="locationName" name="locationName" value="<%= character.locationName %>" required>
+  </div>
+  <div>
+    <label for="locationLink">Link de Localização:</label>
+    <input type="text" id="locationLink" name="locationLink" value="<%= character.locationLink %>" required>
+  </div>
+  <div>
+    <label for="image">URL da Imagem:</label>
+    <input type="text" id="image" name="image" value="<%= character.image %>" required>
+  </div>
+  <div>
+    <label for="created">Data de Criação:</label>
+    <input type="text" id="created" name="created" value="<%= character.created %>" required>
+  </div>
+  <div>
+    <label for="url">URL:</label>
+    <input type="text" id="url" name="url" value="<%= character.url %>" required>
+  </div>
+  <button type="submit">Salvar</button>
+</form>
+
+</body>
+</html>
