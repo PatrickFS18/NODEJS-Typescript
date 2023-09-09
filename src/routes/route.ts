@@ -1,12 +1,27 @@
-import express from 'express';
 import { Router } from 'express';
+import mysql from 'mysql2/promise';
 
 const router = Router();
 
-const characters = /* Obter os dados dos personagens aqui */ [];
+const dbConfig ={
+  host: 'localhost',
+  user: 'root',
+  password: '', 
+  database: 'personagens',
+};
+router.get('/', async (req, res) => {
+  try {
 
-router.get('/', (req, res) => {
-  res.render('personagens');
+    const connection = await mysql.createConnection(dbConfig);
+
+    const [rows] = await connection.execute('SELECT * FROM `characters`');
+
+    await connection.end();
+
+    res.render('allCharacters', { characters: rows });
+  } catch (error) {
+    console.error('Erro ao buscar personagens:', error);
+    res.status(500).send('Erro ao buscar personagens');
+  }
 });
-
 export { router as personagensRoutes };

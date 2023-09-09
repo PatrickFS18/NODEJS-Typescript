@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Personagens</title>
+    <style>
+        body {
+            background-image: url('/background.jpg'); /* Substitua pelo caminho da sua imagem de fundo */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        /* Estilo para a tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-bottom: 20px;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        table th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Estilo para a imagem na célula */
+        table td img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        /* Estilo para o link */
+        table td a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        table td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Minha Aplicação de Personagens</h1>
+    </div>
+    <div class="container">
+       
+      <h2>Lista de Personagens</h2>
+
+      <% if (characters && characters.length > 0) { %>
+          <table>
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Nome</th>
+                      <th>Status</th>
+                      <th>Espécie</th>
+                      <th>Tipo</th>
+                      <th>Gênero</th>
+                      <th>ID de Origem</th>
+                      <th>ID de Localização</th>
+                      <th>Imagem</th>
+                      <th>Data de Criação</th>
+                      <th>URL</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <% characters.forEach((character) => { %>
+                      <tr>
+                          <td><%= character.id %></td>
+                          <td><%= character.name %></td>
+                          <td><%= character.status %></td>
+                          <td><%= character.species %></td>
+                          <td><%= character.type %></td>
+                          <td><%= character.gender %></td>
+                          <td><%= character.origin_id %></td>
+                          <td><%= character.location_id %></td>
+                          <td><img src="<%= character.image %>" alt="<%= character.name %>" /></td>
+                          <td><%= character.created %></td>
+                          <td><a href="<%= character.url %>"><%= character.url %></a></td>
+                      </tr>
+                  <% }); %>
+              </tbody>
+          </table>
+      <% } else { %>
+          <p>Nenhum personagem encontrado.</p>
+      <% } %>
+    </div>
+</body>
+</html>
