@@ -22,16 +22,12 @@ class firstController {
   public async deletarPersonagens(req: Request, res: Response) {
     const characters = prisma.character.findMany();
 
-    const id = req.body.id;
-
-    // Exclua o personagem com base no ID
-    prisma.character.delete({
-      where: {
-        id: Number(id),
-      },
+    const { id } = req.params;
+    const Acharacter = await prisma.character.delete({
+        where: { id: Number(id) },
     });
-
-    res.render("allCharacters", { characters });
+    
+    res.redirect("/");
   }
 
   //inserir Personagem

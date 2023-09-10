@@ -892,7 +892,7 @@ export namespace Prisma {
     locationName: string | null
     locationLink: string | null
     image: string | null
-    created: Date | null
+    created: string | null
     url: string | null
   }
 
@@ -908,7 +908,7 @@ export namespace Prisma {
     locationName: string | null
     locationLink: string | null
     image: string | null
-    created: Date | null
+    created: string | null
     url: string | null
   }
 
@@ -1085,7 +1085,7 @@ export namespace Prisma {
     locationName: string
     locationLink: string
     image: string
-    created: Date
+    created: string
     url: string
     _count: CharacterCountAggregateOutputType | null
     _avg: CharacterAvgAggregateOutputType | null
@@ -1156,7 +1156,7 @@ export namespace Prisma {
       locationName: string
       locationLink: string
       image: string
-      created: Date
+      created: string
       url: string
     }, ExtArgs["result"]["character"]>
     composites: {}
@@ -1563,7 +1563,7 @@ export namespace Prisma {
     readonly locationName: FieldRef<"Character", 'String'>
     readonly locationLink: FieldRef<"Character", 'String'>
     readonly image: FieldRef<"Character", 'String'>
-    readonly created: FieldRef<"Character", 'DateTime'>
+    readonly created: FieldRef<"Character", 'String'>
     readonly url: FieldRef<"Character", 'String'>
   }
     
@@ -1913,13 +1913,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1944,7 +1937,7 @@ export namespace Prisma {
     locationName?: StringFilter<"Character"> | string
     locationLink?: StringFilter<"Character"> | string
     image?: StringFilter<"Character"> | string
-    created?: DateTimeFilter<"Character"> | Date | string
+    created?: StringFilter<"Character"> | string
     url?: StringFilter<"Character"> | string
   }
 
@@ -1979,7 +1972,7 @@ export namespace Prisma {
     locationName?: StringFilter<"Character"> | string
     locationLink?: StringFilter<"Character"> | string
     image?: StringFilter<"Character"> | string
-    created?: DateTimeFilter<"Character"> | Date | string
+    created?: StringFilter<"Character"> | string
     url?: StringFilter<"Character"> | string
   }, "id">
 
@@ -2019,7 +2012,7 @@ export namespace Prisma {
     locationName?: StringWithAggregatesFilter<"Character"> | string
     locationLink?: StringWithAggregatesFilter<"Character"> | string
     image?: StringWithAggregatesFilter<"Character"> | string
-    created?: DateTimeWithAggregatesFilter<"Character"> | Date | string
+    created?: StringWithAggregatesFilter<"Character"> | string
     url?: StringWithAggregatesFilter<"Character"> | string
   }
 
@@ -2034,7 +2027,7 @@ export namespace Prisma {
     locationName: string
     locationLink: string
     image: string
-    created?: Date | string
+    created: string
     url: string
   }
 
@@ -2050,7 +2043,7 @@ export namespace Prisma {
     locationName: string
     locationLink: string
     image: string
-    created?: Date | string
+    created: string
     url: string
   }
 
@@ -2065,7 +2058,7 @@ export namespace Prisma {
     locationName?: StringFieldUpdateOperationsInput | string
     locationLink?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    created?: DateTimeFieldUpdateOperationsInput | Date | string
+    created?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
   }
 
@@ -2081,7 +2074,7 @@ export namespace Prisma {
     locationName?: StringFieldUpdateOperationsInput | string
     locationLink?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    created?: DateTimeFieldUpdateOperationsInput | Date | string
+    created?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
   }
 
@@ -2097,7 +2090,7 @@ export namespace Prisma {
     locationName: string
     locationLink: string
     image: string
-    created?: Date | string
+    created: string
     url: string
   }
 
@@ -2112,7 +2105,7 @@ export namespace Prisma {
     locationName?: StringFieldUpdateOperationsInput | string
     locationLink?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    created?: DateTimeFieldUpdateOperationsInput | Date | string
+    created?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
   }
 
@@ -2128,7 +2121,7 @@ export namespace Prisma {
     locationName?: StringFieldUpdateOperationsInput | string
     locationLink?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    created?: DateTimeFieldUpdateOperationsInput | Date | string
+    created?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
   }
 
@@ -2155,17 +2148,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type CharacterCountOrderByAggregateInput = {
@@ -2257,26 +2239,8 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type StringFieldUpdateOperationsInput = {
     set?: string
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -2310,17 +2274,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -2365,20 +2318,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
 

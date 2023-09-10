@@ -133,8 +133,9 @@ setInterval(updateGradient, 10);
     <div class="container">
        
       <h2 style="text-align: center;width: 136%;">Lista de Personagens</h2>
-
-      <% if (characters && characters.length > 0) { %>
+      
+      
+<% if (characters && characters.length > 0) { %>
           <table>
               <thead>
                   <tr>
@@ -180,8 +181,8 @@ setInterval(updateGradient, 10);
                       </td>
                       <td>
                         <!-- form para excluir um personagem -->
-                        <form action="/delete" method="POST" class="form-delete">
-                          <input type="hidden" name="id" value="<%= character.id %>"> 
+                        <form action="/delete/<%= character.id %>" method="get" class="form-delete">
+                          <!--<input type="hidden" name="id" value="<%= character.id %>">--> 
                           <button type="submit" class="btn-delete">Excluir</button>
                         </form>
                       </td>

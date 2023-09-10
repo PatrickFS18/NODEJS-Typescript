@@ -13,8 +13,15 @@ router.post('/editPage', FirstController.EditPageInit);
 router.post('/characters', FirstController.inserirPersonagens);
 
 router.post('/editCharacter', FirstController.editarPersonagens);
-
-router.delete('/delete', FirstController.deletarPersonagens);
+/*
+router.get(`/delete/:id`, async (req, res) => {
+    const { id } = req.params
+    const Acharacter = await prisma.character.delete({
+        where: { id: Number(id) },
+   });
+  })
+  */
+router.get('/delete/:id', FirstController.deletarPersonagens);
 
 
 export { router as personagensRoutes };

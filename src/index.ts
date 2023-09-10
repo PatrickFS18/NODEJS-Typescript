@@ -6,6 +6,10 @@ import { personagensRoutes } from './routes/route'; // Importe o roteador dos pe
 import express from 'express';
 import path from 'path';
 
+import { PrismaClient } from "../prisma/generated/client";
+
+const prisma = new PrismaClient();
+
 const port = process.env.PORT || 3000;
 
 const app = express();
