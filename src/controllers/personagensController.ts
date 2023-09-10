@@ -109,11 +109,25 @@ public async editarPersonagens(req: Request, res: Response) {
   const image = req.body.image;
   const created = req.body.created;
   const url = req.body.url;
-
+  
+  console.log('id:', id);
+  console.log('name:', name);
+  console.log('species:', species);
+  console.log('status:', status);
+  console.log('type:', type);
+  console.log('gender:', gender);
+  console.log('originName:', originName);
+  console.log('originLink:', originLink);
+  console.log('locationName:', locationName);
+  console.log('locationLink:', locationLink);
+  console.log('image:', image);
+  console.log('created:', created);
+  console.log('url:', url);
+  
 
   try {
     const updatedCharacter = await prisma.character.update({
-      where: { id: parseInt(id) },
+      where: { id: Number(id) },
       data: {
         name,
         species,

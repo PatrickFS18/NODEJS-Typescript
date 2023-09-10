@@ -69,6 +69,8 @@
             <h3><%= character.name %></h3>
         </div>
         <form action="/editCharacter" method="POST" class="edit-form">
+            <input type="hidden" name="id" value="<%= character.id %>">
+
             <label for="name">Nome:</label>
             <input type="text" name="name" id="name" value="<%= character.name %>" placeholder="Nome atual: <%= character.name %>">
             <label for="status">Status:</label>
