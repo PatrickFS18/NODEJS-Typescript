@@ -20,6 +20,7 @@ class firstController {
   //deletar personagem
 
   public async deletarPersonagens(req: Request, res: Response) {
+    try{
     const characters = prisma.character.findMany();
 
     const { id } = req.params;
@@ -28,6 +29,14 @@ class firstController {
     });
     
     res.redirect("/");
+  }catch(error) {
+    const err={
+      success: false,
+      error: 'Erro ao excluir o personagem. Aguarde alguns instantes..',
+    };
+      console.error('Erro ao excluir o personagem:', error);
+      res.render("errorPage",{ err });
+  }
   }
 
   //inserir Personagem
@@ -72,10 +81,13 @@ const url = req.body.url;
       const characters = await prisma.character.findMany();
 
       res.render("allCharacters", { characters });
-    } catch (error) {
-      console.error("Erro ao obter personagens:", error);
-
-      res.status(500).json({ error: "Erro ao obter personagens" });
+    } catch(error) {
+      const err={
+        success: false,
+        error: 'Erro ao listar os personagens. Aguarde alguns instantes..',
+      };
+        console.error('Erro ao listar o personagem:', error);
+        res.render("errorPage",{ err });
     } finally {
       await prisma.$disconnect();
     }
@@ -119,9 +131,13 @@ public async editarPersonagens(req: Request, res: Response) {
     });
 
     res.redirect("/");
-  } catch (error) {
-    console.error("Erro ao atualizar personagem:", error);
-    res.status(500).send("Erro ao atualizar personagem");
+  } catch(error) {
+    const err={
+      success: false,
+      error: 'Erro ao editar o personagem. Aguarde alguns instantes..',
+    };
+      console.error('Erro ao editar o personagem:', error);
+      res.render("errorPage",{ err });
   }
 };
 }
