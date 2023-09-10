@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Personagens</title>
-    <link rel="stylesheet" href="/styles.css">
 <style>
 body {
     background-size: 100%;
@@ -20,7 +19,7 @@ body {
     padding: 40px;
 }
 
-.container {
+.table-container {
     padding: 20px;
 }
 
@@ -130,10 +129,14 @@ background-color: #7e0000;
 
       <h1 id="title" style="display: inline;"> Rick and Morty</h1>
     </div>
-    <div class="container">
+    <div id="carousel-container">
       
       <a href="/addCharacter" class="btn-adicionar">Adicionar Personagem</a>
-
+      <% if (typeof successMessage !== 'undefined') { %>
+        <div class="alert alert-success">
+          <%= successMessage %>
+        </div>
+      <% } %>
 <% if (characters && characters.length > 0) { %>
           <table>
               <thead>
@@ -193,7 +196,17 @@ background-color: #7e0000;
           <p>Nenhum personagem encontrado.</p>
       <% } %>
     </div>
-</body>
+    <div class="pagination">
+        <% if (characters.length >= 15) { %>
+            <button id="previousPage" onclick="carregarPaginaAnterior()">Anterior</button>
+            <button id="nextPage" onclick="carregarProximaPagina()">Próximo</button>
+          <% } else { %>
+        
+          <p>Nenhum personagem encontrado.</p>
+        <% } %>
+
+<p style="display: none;" id="page"><%= page %></p>
+    </body>
 
 
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
@@ -251,4 +264,88 @@ function updateGradient() {
 
 setInterval(updateGradient, 10);
 </script>
+<script>
+    setTimeout(function() {
+      var successMessage = document.getElementById('success-message');
+      if (successMessage) {
+        successMessage.style.display = 'none';
+      }
+    }, 3000); 
+  </script>
+
+
+<script>
+const characterTableBody = document.querySelector('tbody');
+const charactersPerPage = 15;
+let currentPage = parseInt(document.getElementById("page").textContent); // Obtenha a página atual do modelo EJS
+
+// Função para carregar os personagens com base na página atual
+async function carregarPersonagens(page) {
+  // Faça uma solicitação AJAX para buscar os personagens da página
+  const response = await fetch(`/?page=${page}`);
+  const characters = await response.json();
+
+  // Limpe a tabela de personagens
+  characterTableBody.innerHTML = '';
+
+  // Adicione os personagens à tabela
+  characters.forEach((character) => {
+    const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${character.id}</td>
+          <td>${character.name}</td>
+          <td>${character.status}</td>
+          <td>${character.species}</td>
+          <td>${character.type}</td>
+          <td>${character.gender}</td>
+          <td>${character.originName}</td>
+          <td>${character.originLink}</td>
+          <td>${character.locationName}</td>
+          <td>${character.locationLink}</td>
+          <td><img src="${character.image}" alt="${character.name}" /></td>
+          <td>${character.created}</td>
+          <td><a href="${character.url}">${character.url}</a></td>
+          <td>
+            <!-- Formulário para editar um personagem -->
+            <form action="/editPage" method="POST">
+              <input type="hidden" name="id" value="${character.id}">
+              <button type="submit" class="btn-edit" id="edit">Editar</button>
+            </form>
+          </td>
+          <td>
+            <!-- Formulário para excluir um personagem -->
+            <form action="/delete/${character.id}" method="get" class="form-delete">
+              <button type="submit" class="btn-delete" id="delete">Excluir</button>
+            </form>
+          </td>
+        `;
+        characterTableBody.appendChild(row);
+  });
+
+  // Verifique se há uma página anterior ou seguinte
+  document.getElementById('previousPage').disabled = page === 1;
+  document.getElementById('nextPage').disabled = characters.length < charactersPerPage;
+}
+
+// Função para carregar a página anterior
+function carregarPaginaAnterior() {
+  if (currentPage > 1) {
+    currentPage--;
+    window.location.href = `/?page=${currentPage}`;
+
+    carregarPersonagens(currentPage);
+  }
+}
+
+// Função para carregar a próxima página
+function carregarProximaPagina() {
+  currentPage++;
+  window.location.href = `/?page=${currentPage}`;
+  carregarPersonagens(currentPage);
+}
+
+// Carregue os personagens da página inicial
+carregarPersonagens(currentPage);
+    </script>
 </html>

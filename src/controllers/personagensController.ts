@@ -12,25 +12,29 @@ class firstController {
    public async listarPersonagens(req: Request, res: Response) {
 
     try {
-
-      const characters = await prisma.character.findMany();
-
-      res.render("allCharacters", { characters });
-
+      const page = req.query.page ? parseInt(req.query.page as string) : 1;
+      const pageSize = 15; 
+      const skip = (page - 1) * pageSize;
+  
+      const characters = await prisma.character.findMany({
+        skip,
+        take: pageSize,
+      });
+  
+      // Calcula o número total de páginas com base na contagem total de personagens
+      const totalCharacters = await prisma.character.count();
+      const totalPages = Math.ceil(totalCharacters / pageSize);
+  
+      res.render('allCharacters', {
+        characters,
+        page: page,
+        totalPages,
+      });
     } catch (error) {
-
-      const err = {
-        success: false,
-        error: "Erro ao listar os personagens. Aguarde alguns instantes..",
-      };
-
-      console.error("Erro ao listar o personagem:", error);
-      res.render("errorPage", { err });
-
+      console.error('Erro ao listar personagens:', error);
+      res.status(500).send('Erro ao listar personagens');
     } finally {
-
       await prisma.$disconnect();
-
     }
   }
 
@@ -80,15 +84,15 @@ class firstController {
   public async deletarPersonagens(req: Request, res: Response) {
 
     try {
-      const characters = prisma.character.findMany();
 
       const { id } = req.params;
       const Acharacter = await prisma.character.delete({
         where: { id: Number(id) },
       });
+      const characters = prisma.character.findMany();
 
+      const successMessage="Exclusão feita com sucesso";
       res.redirect("/");
-
     } catch (error) {
 
       const err = {
@@ -144,8 +148,8 @@ class firstController {
           url,
         },
       });
-
-      res.render("allCharacters", { characters });
+     const successMessage="Personagem "+name+" Adicionado com Sucesso";
+      res.render("allCharacters", { characters, successMessage });
 
     } catch (error) {
 
@@ -199,8 +203,8 @@ class firstController {
           url,
         },
     });
-
-    res.redirect("/");
+    const successMessage="Edição feita com sucesso";
+    res.render("allCharacters", { characters, successMessage });
     
   } catch (error) {
 
@@ -208,6 +212,7 @@ class firstController {
         success: false,
         error: "Erro ao editar o personagem. Aguarde alguns instantes..",
       };
+
       console.error("Erro ao editar o personagem:", error);
       res.render("errorPage", { err });
     
