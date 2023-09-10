@@ -3,7 +3,8 @@ import { PrismaClient } from "../../prisma/generated/client";
 
 const prisma = new PrismaClient();
 
-//minha class controller, firstController
+// Função para paginação da tela principal
+
 async function paginateCharacters(req: Request) {
   const page = req.query.page ? parseInt(req.query.page as string) : 1;
   const pageSize = 15;
@@ -20,6 +21,8 @@ async function paginateCharacters(req: Request) {
 
   return { characters, totalPages, page: page };
 }
+
+//minha class controller, firstController
 
 class firstController {
    
