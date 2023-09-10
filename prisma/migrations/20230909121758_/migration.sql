@@ -11,7 +11,7 @@ CREATE TABLE `Character` (
     `locationName` VARCHAR(191) NOT NULL,
     `locationLink` VARCHAR(191) NOT NULL,
     `image` VARCHAR(191) NOT NULL,
-    `created` DATETIME(3) NOT NULL,
+    `created` VARCHAR(255) NOT NULL,
     `url` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)

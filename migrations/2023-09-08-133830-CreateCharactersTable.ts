@@ -12,7 +12,6 @@ export class CreateCharactersTable1645646519296 implements MigrationInterface {
                 { name: "species", type: "varchar" },
                 { name: "type", type: "varchar" },
                 { name: "gender", type: "varchar" },
-                // Adicione outros campos conforme necessário
             ]
         }), true);
     }

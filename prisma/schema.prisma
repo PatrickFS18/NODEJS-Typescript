@@ -13,7 +13,7 @@ model Character {
   locationName String    
   locationLink String    
   image        String
-  created      DateTime
+  created      String
   url          String
 }
 
