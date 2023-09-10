@@ -4,32 +4,40 @@ import { PrismaClient } from "../../prisma/generated/client";
 const prisma = new PrismaClient();
 
 //minha class controller, firstController
+async function paginateCharacters(req: Request) {
+  const page = req.query.page ? parseInt(req.query.page as string) : 1;
+  const pageSize = 15;
+  const skip = (page - 1) * pageSize;
+
+  const characters = await prisma.character.findMany({
+    skip,
+    take: pageSize,
+  });
+
+  // Calcula o número total de páginas com base na contagem total de personagens
+  const totalCharacters = await prisma.character.count();
+  const totalPages = Math.ceil(totalCharacters / pageSize);
+
+  return { characters, totalPages, page: page };
+}
 
 class firstController {
    
   //------------------Pagina Inicial---------------------//
+  
 
    public async listarPersonagens(req: Request, res: Response) {
 
     try {
-      const page = req.query.page ? parseInt(req.query.page as string) : 1;
-      const pageSize = 15; 
-      const skip = (page - 1) * pageSize;
-  
-      const characters = await prisma.character.findMany({
-        skip,
-        take: pageSize,
-      });
-  
-      // Calcula o número total de páginas com base na contagem total de personagens
-      const totalCharacters = await prisma.character.count();
-      const totalPages = Math.ceil(totalCharacters / pageSize);
-  
+
+      const { characters, totalPages, page } = await paginateCharacters(req);
+
       res.render('allCharacters', {
         characters,
         page: page,
         totalPages,
       });
+
     } catch (error) {
       console.error('Erro ao listar personagens:', error);
       res.status(500).send('Erro ao listar personagens');
@@ -116,8 +124,9 @@ class firstController {
 
   public async inserirPersonagens(req: Request, res: Response) {
     try {
-      const characters = prisma.character.findMany();
+            const { characters, totalPages, page } = await paginateCharacters(req);
 
+      let a = new Date();
       const id = req.body.id;
       const name = req.body.name;
       const species = req.body.species;
@@ -129,7 +138,7 @@ class firstController {
       const locationName = req.body.locationName;
       const locationLink = req.body.locationLink;
       const image = req.body.image;
-      const created = req.body.created;
+      const created=a.toISOString();
       const url = req.body.url;
 
       const newCharacter = await prisma.character.create({
@@ -149,8 +158,12 @@ class firstController {
         },
       });
      const successMessage="Personagem "+name+" Adicionado com Sucesso";
-      res.render("allCharacters", { characters, successMessage });
-
+res.render('allCharacters', {
+        characters,
+        page: page,
+        totalPages,
+        successMessage
+      });
     } catch (error) {
 
       const err={ error };
