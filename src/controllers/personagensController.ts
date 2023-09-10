@@ -6,8 +6,36 @@ const prisma = new PrismaClient();
 //minha class controller, firstController
 
 class firstController {
-  
-  //edit page init
+   
+  //------------------Pagina Inicial---------------------//
+
+   public async listarPersonagens(req: Request, res: Response) {
+
+    try {
+
+      const characters = await prisma.character.findMany();
+
+      res.render("allCharacters", { characters });
+
+    } catch (error) {
+
+      const err = {
+        success: false,
+        error: "Erro ao listar os personagens. Aguarde alguns instantes..",
+      };
+
+      console.error("Erro ao listar o personagem:", error);
+      res.render("errorPage", { err });
+
+    } finally {
+
+      await prisma.$disconnect();
+
+    }
+  }
+
+  //------------------edit page init---------------------//
+
   public async EditPageInit(req: Request, res: Response) {
 
     try {
@@ -38,7 +66,16 @@ class firstController {
 
     }
   }
-  //deletar personagem
+ 
+  //------------------Add page init---------------------//
+
+ public InitPageAdd(req: Request, res: Response) {
+
+  res.render("addCharacters");
+
+}
+
+  //------------------Deletar Personagem---------------------//
 
   public async deletarPersonagens(req: Request, res: Response) {
 
@@ -69,14 +106,10 @@ class firstController {
     }
   }
 
-  // inserir persongem (init page)
-  public InitPageAdd(req: Request, res: Response) {
+ 
 
-    res.render("addCharacters");
+  //------------------Inserir Personagem---------------------//
 
-  }
-
-  //inserir Personagem
   public async inserirPersonagens(req: Request, res: Response) {
     try {
       const characters = prisma.character.findMany();
@@ -126,35 +159,9 @@ class firstController {
     }
   }
 
-  // listar personagem 
+ 
 
-  public async listarPersonagens(req: Request, res: Response) {
-
-    try {
-
-      const characters = await prisma.character.findMany();
-
-      res.render("allCharacters", { characters });
-
-    } catch (error) {
-
-      const err = {
-        success: false,
-        error: "Erro ao listar os personagens. Aguarde alguns instantes..",
-      };
-
-      console.error("Erro ao listar o personagem:", error);
-      res.render("errorPage", { err });
-
-    } finally {
-
-      await prisma.$disconnect();
-
-    }
-  }
-
-
-  //editar personagem
+  //------------------Editar Personagem---------------------//
 
   public async editarPersonagens(req: Request, res: Response) {
 
