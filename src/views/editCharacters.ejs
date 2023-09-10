@@ -72,40 +72,40 @@
             <input type="hidden" name="id" value="<%= character.id %>">
 
             <label for="name">Nome:</label>
-            <input type="text" name="name" id="name" value="<%= character.name %>" placeholder="Nome atual: <%= character.name %>">
+            <input type="text" name="name" id="name" value="<%= character.name %>" placeholder="Nome atual: <%= character.name %>" required>
             <label for="status">Status:</label>
 
-            <input type="text" name="status" id="status" value="<%= character.status %>" placeholder="Status atual: <%= character.status %>">
+            <input type="text" name="status" id="status" value="<%= character.status %>" placeholder="Status atual: <%= character.status %>" required>
             <label for="species">Espécie:</label>
 
-            <input type="text" name="species" id="species" value="<%= character.species %>" placeholder="Espécie atual: <%= character.species %>">
+            <input type="text" name="species" id="species" value="<%= character.species %>" placeholder="Espécie atual: <%= character.species %>" required>
             <label for="type">Tipo:</label>
 
             <input type="text" name="type" id="type" value="<%= character.type %>" placeholder="Tipo atual: <%= character.type %>">
             <label for="gender">Gênero:</label>
 
-            <input type="text" name="gender" id="gender" value="<%= character.gender %>" placeholder="Gênero atual: <%= character.gender %>">
+            <input type="text" name="gender" id="gender" value="<%= character.gender %>" placeholder="Gênero atual: <%= character.gender %>" required>
             <label for="origin">Origem nome:</label>
 
-            <input type="text" name="originName" id="origin" value="<%= character.originName %>" placeholder="Origem atual: <%= character.originName %>">
+            <input type="text" name="originName" id="origin" value="<%= character.originName %>" placeholder="Origem atual: <%= character.originName %>" required>
             <label for="origin">Origem link:</label>
 
             <input type="text" name="originLink" id="origin" value="<%= character.originLink %>" placeholder="Origem atual: <%= character.originLink %>">
             <label for="location">Localização nome:</label>
 
-            <input type="text" name="locationName" id="location" value="<%= character.locationName %>" placeholder="Localização atual: <%= character.locationName %>">
+            <input type="text" name="locationName" id="location" value="<%= character.locationName %>" placeholder="Localização atual: <%= character.locationName %>" required>
             <label for="location">Localização link:</label>
             
-            <input type="text" name="locationLink" id="location" value="<%= character.locationLink %>" placeholder="Localização atual: <%= character.locationName %>">
+            <input type="text" name="locationLink" id="location" value="<%= character.locationLink %>" placeholder="Localização atual: <%= character.locationName %>" required>
             <label for="image">URL da Imagem:</label>
 
-            <input type="text" name="image" id="image" value="<%= character.image %>" placeholder="URL da imagem atual: <%= character.image %>">
+            <input type="text" name="image" id="image" value="<%= character.image %>" placeholder="URL da imagem atual: <%= character.image %>" required>
             <label for="created">Data de Criação:</label>
 
-            <input type="text" name="created" id="created" value="<%= character.created %>" placeholder="Data de criação atual: <%= character.created %>">
+            <input type="text" name="created" id="created" value="<%= character.created %>" placeholder="Data de criação atual: <%= character.created %>" required>
             <label for="url">URL:</label>
 
-            <input type="text" name="url" id="url" value="<%= character.url %>" placeholder="URL atual: <%= character.url %>">
+            <input type="text" name="url" id="url" value="<%= character.url %>" placeholder="URL atual: <%= character.url %>" required>
             <button type="submit">Salvar Alterações</button>
         </form>
     </div>

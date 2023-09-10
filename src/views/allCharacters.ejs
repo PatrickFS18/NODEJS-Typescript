@@ -4,70 +4,198 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Personagens</title>
-    <style>
-        body {
-            background-size: 100%;
-            background-position: center;
-            font-family: Arial, sans-serif;
-        }
+    <link rel="stylesheet" href="/styles.css">
+<style>
+body {
+    background-size: 100%;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    zoom:60%;
 
-        .navbar {
-
-            color: #fff;
-            padding: 40px;
-        }
-
-        .container {
-            padding: 20px;
-        }
-
-        /* Estilo para a tabela */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            border-spacing: 0;
-            margin-bottom: 20px;
-        }
-
-        table th,
-        table td {
-            padding: 5px;
-            text-align: left;
-            border-bottom: 1px solid #ccc;
-        }
-
-        table th {
-            background-color: #333;
-            color: #fff;
-        }
-
-        table tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        /* Estilo para a imagem na célula */
-        table td img {
-            max-width: 100px;
-            height: auto;
-        }
-
-        /* Estilo para o link */
-        table td a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        table td a:hover {
-            text-decoration: underline;
-        }
-        #gradient
-{
-  width: 100%;
-  height: 200px;
-  padding: 0px;
-  margin: 0px;
 }
-    </style>
+
+.navbar {
+
+    color: #fff;
+    padding: 40px;
+}
+
+.container {
+    padding: 20px;
+}
+
+/* Estilo para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    padding: 5px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+table th {
+    background-color: #333;
+    color: #fff;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Estilo para a imagem na célula */
+table td img {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Estilo para o link */
+table td a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+table td a:hover {
+    text-decoration: underline;
+}
+#gradient
+{
+width: 100%;
+height: 200px;
+padding: 0px;
+margin: 0px;
+}
+.btn-adicionar {
+display: inline-block;
+padding: 10px 20px;
+background-color: #007bff;
+color: #fff; 
+text-decoration: none;
+border-radius: 5px;
+transition: background-color 0.3s ease; 
+width: 50%;
+margin-left: 32%;
+text-align: center;
+font-size: x-large;
+margin-top: 1em;
+margin-bottom: 1em;
+}
+
+.btn-adicionar:hover {
+background-color: #0056b3;
+cursor: pointer; 
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
+#edit, #delete {
+
+display: inline-block;
+padding: 10px 20px;
+color: #fff; 
+text-decoration: none;
+border-radius: 5px;
+transition: background-color 0.3s ease; 
+}
+
+#edit, #delete:hover {
+cursor: pointer; 
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
+}
+#edit{
+background-color: #007bff;
+}
+#delete{
+background-color: #c61e1e;
+
+}
+#edit:hover{
+background-color: #0056b3;
+}
+#delete:hover{
+background-color: #7e0000;
+
+}
+
+</style>
+  
+</head>
+
+<body id="gradient-body">
+    <div class="navbar" style="background-color: rgba(247, 0, 235, 0.649);width: 100%;text-align: center; margin-left: 3em;border-radius: 1em;">
+
+      <h1 id="title" style="display: inline;"> Rick and Morty</h1>
+    </div>
+    <div class="container">
+      
+      <a href="/adicionar-personagem" class="btn-adicionar">Adicionar Personagem</a>
+
+<% if (characters && characters.length > 0) { %>
+          <table>
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Nome</th>
+                      <th>Status</th>
+                      <th>Espécie</th>
+                      <th>Tipo</th>
+                      <th>Gênero</th>
+                      <th>Nome de Origem</th>
+                      <th>Link de Origem</th>
+                      <th>Link da Localização</th>
+                      <th>Nome da Localização</th>
+                      <th>Imagem</th>
+                      <th>Data de Criação</th>
+                      <th>URL</th>
+                      <th>Ação</th>
+                      <th>Ação</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <% characters.forEach((character) => { %>
+                    <tr>
+                      <td><%= character.id %></td>
+                      <td><%= character.name %></td>
+                      <td><%= character.status %></td>
+                      <td><%= character.species %></td>
+                      <td><%= character.type %></td>
+                      <td><%= character.gender %></td>
+                      <td><%= character.originName %></td>
+                      <td><%= character.originLink %></td>
+                      <td><%= character.locationName %></td>
+                      <td><%= character.locationLink %></td>
+                      <td><img src="<%= character.image %>" alt="<%= character.name %>" /></td>
+                      <td><%= character.created %></td>
+                      <td><a href="<%= character.url %>"><%= character.url %></a></td>
+                      <td>
+                        <!-- form para editar um personagem -->
+                      <form action="/editPage" method="POST">
+                      <input type="hidden" name="id" value="<%= character.id %>"> 
+                       <button type="submit" class="btn-edit" id="edit">Editar</button>
+                      </form>
+                      </td>
+                      <td>
+                        <!-- form para excluir um personagem -->
+                        <form action="/delete/<%= character.id %>" method="get" class="form-delete">
+                          <!--<input type="hidden" name="id" value="<%= character.id %>">--> 
+                          <button type="submit" class="btn-delete" id="delete">Excluir</button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% }); %>
+              </tbody>
+          </table>
+      <% } else { %>
+          <p>Nenhum personagem encontrado.</p>
+      <% } %>
+    </div>
+</body>
+
+
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
      <script>
     var colors = new Array(
@@ -123,76 +251,4 @@ function updateGradient() {
 
 setInterval(updateGradient, 10);
 </script>
-</head>
-
-<body id="gradient-body">
-    <div class="navbar" style="background-color: blanchedalmond;width: 136%;text-align: center;">
-
-      <h1 id="title" style="display: inline;"> Rick and Morty</h1>
-    </div>
-    <div class="container">
-       
-      <h2 style="text-align: center;width: 136%;">Lista de Personagens</h2>
-      
-      
-<% if (characters && characters.length > 0) { %>
-          <table>
-              <thead>
-                  <tr>
-                      <th>ID</th>
-                      <th>Nome</th>
-                      <th>Status</th>
-                      <th>Espécie</th>
-                      <th>Tipo</th>
-                      <th>Gênero</th>
-                      <th>Nome de Origem</th>
-                      <th>Link de Origem</th>
-                      <th>Link da Localização</th>
-                      <th>Nome da Localização</th>
-                      <th>Imagem</th>
-                      <th>Data de Criação</th>
-                      <th>URL</th>
-                      <th>Ação</th>
-                      <th>Ação</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <% characters.forEach((character) => { %>
-                    <tr>
-                      <td><%= character.id %></td>
-                      <td><%= character.name %></td>
-                      <td><%= character.status %></td>
-                      <td><%= character.species %></td>
-                      <td><%= character.type %></td>
-                      <td><%= character.gender %></td>
-                      <td><%= character.originName %></td>
-                      <td><%= character.originLink %></td>
-                      <td><%= character.locationName %></td>
-                      <td><%= character.locationLink %></td>
-                      <td><img src="<%= character.image %>" alt="<%= character.name %>" /></td>
-                      <td><%= character.created %></td>
-                      <td><a href="<%= character.url %>"><%= character.url %></a></td>
-                      <td>
-                        <!-- form para editar um personagem -->
-                      <form action="/editPage" method="POST">
-                      <input type="hidden" name="id" value="<%= character.id %>"> 
-                       <button type="submit" class="btn-edit">Editar</button>
-                      </form>
-                      </td>
-                      <td>
-                        <!-- form para excluir um personagem -->
-                        <form action="/delete/<%= character.id %>" method="get" class="form-delete">
-                          <!--<input type="hidden" name="id" value="<%= character.id %>">--> 
-                          <button type="submit" class="btn-delete">Excluir</button>
-                        </form>
-                      </td>
-                    </tr>
-                  <% }); %>
-              </tbody>
-          </table>
-      <% } else { %>
-          <p>Nenhum personagem encontrado.</p>
-      <% } %>
-    </div>
-</body>
 </html>

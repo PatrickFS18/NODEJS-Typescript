@@ -15,7 +15,8 @@ class firstController {
       },
     });
     res.render("editCharacters", { character });
-  }
+    await prisma.$disconnect();
+    }
 
   //deletar personagem
 
@@ -37,6 +38,9 @@ class firstController {
       console.error('Erro ao excluir o personagem:', error);
       res.render("errorPage",{ err });
   }
+  finally {
+      await prisma.$disconnect();
+    }
   }
 
   //inserir Personagem
@@ -73,7 +77,9 @@ const url = req.body.url;
         url,
       },
     });
+    
     res.render("allCharacters", { characters });
+    
   }
 
   public async listarPersonagens(req: Request, res: Response) {
@@ -109,7 +115,7 @@ public async editarPersonagens(req: Request, res: Response) {
   const image = req.body.image;
   const created = req.body.created;
   const url = req.body.url;
-  
+
   console.log('id:', id);
   console.log('name:', name);
   console.log('species:', species);
@@ -152,6 +158,9 @@ public async editarPersonagens(req: Request, res: Response) {
     };
       console.error('Erro ao editar o personagem:', error);
       res.render("errorPage",{ err });
+  }
+  finally {
+    await prisma.$disconnect();
   }
 };
 }
