@@ -21,15 +21,18 @@
     "express-handlebars": "^7.1.2",
     "express-session": "^1.17.3",
     "handlebars": "^4.7.8",
+    "is-url": "^1.2.4",
     "mysql": "^2.18.1",
     "mysql2": "^3.6.0",
     "prisma": "^5.2.0",
     "sequelize": "^6.33.0",
     "ts-node": "^10.9.1",
     "typeorm": "^0.3.17",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
-    "@types/ejs": "^3.1.2"
+    "@types/ejs": "^3.1.2",
+    "@types/is-url": "^1.2.30"
   }
 }

@@ -1,8 +1,64 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "../../prisma/generated/client";
-
+import isUrl from 'is-url'; // Para validação de URL
 const prisma = new PrismaClient();
 
+
+//Função de validação dos campos de editar e criar personagem
+
+async function validatorCharacters(req:Request,res:Response){
+  const id = parseInt(req.body.id);
+
+  const character = await prisma.character.findFirst({
+    where: {
+      id: id
+    }
+  });
+
+      let date = new Date();
+      const name = req.body.name;
+      const species = req.body.species;
+      const status = req.body.status;
+      const type = req.body.type;
+      const gender = req.body.gender;
+      const originName = req.body.originName;
+      const originLink = req.body.originLink;
+      const locationName = req.body.locationName;
+      const locationLink = req.body.locationLink;
+      const image = req.body.image;
+      const created=date.toISOString();
+      const url = req.body.url;
+
+    // Verifique se a URL da imagem é válida
+    if (image && !isUrl(image)) {
+      res.render("editCharacters",{ character,error: 'URL da imagem inválida.' });
+    }
+
+    // Verifique se o URL é válido
+    if (url && !isUrl(url)) {
+      res.render("editCharacters",{ character,error: 'URL inválida.' });
+    }
+
+    // Verifique se o status é válido (por exemplo, "Alive", "Dead" ou "unknown")
+    const validStatusValues = ['alive', 'dead', 'unknown'];
+    if (!validStatusValues.includes(status.toLowerCase())) {
+      res.render("editCharacters",{ character,error: 'Status inválido.' });
+    }
+
+    // Verifique se o gênero é válido (apenas "male" ou "female" permitidos)
+    const validGenderValues = ['male', 'female'];
+    if (!validGenderValues.includes(gender.toLowerCase())) {
+     res.render("editCharacters",{ character,error: 'Gênero inválido.' });
+    }
+
+    // Verifique se o tipo é válido (apenas "human" ou "alien" permitidos)
+    const validTypeValues = ['human', 'alien'];
+    if (!validTypeValues.includes(species.toLowerCase())) {
+     res.render("editCharacters",{ character,error: 'Espécie inválida.' });
+    }
+    const validation = true;
+    return validation;    //Campos validados e aprovados para edição,continuará execução lógica no controller: editarPersonagens
+}
 // Função para paginação da tela principal
 
 async function paginateCharacters(req: Request) {
@@ -129,7 +185,7 @@ class firstController {
     try {
             const { characters, totalPages, page } = await paginateCharacters(req);
 
-      let a = new Date();
+      let date = new Date();
       const id = req.body.id;
       const name = req.body.name;
       const species = req.body.species;
@@ -141,7 +197,7 @@ class firstController {
       const locationName = req.body.locationName;
       const locationLink = req.body.locationLink;
       const image = req.body.image;
-      const created=a.toISOString();
+      const created=date.toISOString();
       const url = req.body.url;
 
       const newCharacter = await prisma.character.create({
@@ -186,8 +242,10 @@ res.render('allCharacters', {
   public async editarPersonagens(req: Request, res: Response) {
 
     try {
-    const characters = prisma.character.findMany();
 
+    const { characters, totalPages, page } = await paginateCharacters(req);
+    const validation = await validatorCharacters(req,res);
+  
     const id = req.body.id;
     const name = req.body.name;
     const species = req.body.species;
@@ -220,7 +278,17 @@ res.render('allCharacters', {
         },
     });
     const successMessage="Edição feita com sucesso";
-    res.render("allCharacters", { characters, successMessage });
+    if(updatedCharacter && validation==true){
+   res.redirect("/");
+    }else{
+       const err = {
+        success: false,
+        error: "Erro ao editar o personagem!",
+      };
+
+      console.error("Erro ao editar o personagem:", err.error);
+      res.render("errorPage", { err });
+    }
     
   } catch (error) {
 
