@@ -1,6 +1,9 @@
+//---------------------Configuração do servidor-----------------------------//
+
 import * as dotenv from 'dotenv';
 //config .env
 dotenv.config();
+
 import { insertCharacters } from './utils/fetchCharacters';
 import { personagensRoutes } from './routes/route'; // Importe o roteador dos personagens
 import express from 'express';
