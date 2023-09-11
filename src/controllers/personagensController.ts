@@ -11,68 +11,8 @@ import isUrl from 'is-url'; // Para validação de URL
 const prisma = new PrismaClient();
 
 
-//Função de validação dos campos de editar personagem
 
-async function validatorCharacters(req: Request, res: Response) {
-  const id = parseInt(req.body.id);
 
-  const character = await prisma.character.findFirst({
-     where: {
-        id: id
-     }
-  });
-
-  const species = req.body.species;
-  const status = req.body.status;
-  const gender = req.body.gender;
-  const image = req.body.image;
-  const url = req.body.url;
-
-  // Verifique se a URL da imagem é válida
-  if (image && (!isUrl(image) || !image.toLowerCase().endsWith('.jpeg'))) {
-     res.render("editCharacters", {
-        character,
-        error: 'URL da imagem inválida.'
-     });
-  }
-
-  // Verifique se o URL é válido
-  if (url && !isUrl(url)) {
-     res.render("editCharacters", {
-        character,
-        error: 'URL inválida.'
-     });
-  }
-
-  // Verifique se o status é válido (por exemplo, "Alive", "Dead" ou "unknown")
-  const validStatusValues = ['alive', 'dead', 'unknown'];
-  if (!validStatusValues.includes(status.toLowerCase())) {
-     res.render("editCharacters", {
-        character,
-        error: 'Status inválido.'
-     });
-  }
-
-  // Verifique se o gênero é válido (apenas "male" ou "female" permitidos)
-  const validGenderValues = ['male', 'female'];
-  if (!validGenderValues.includes(gender.toLowerCase())) {
-     res.render("editCharacters", {
-        character,
-        error: 'Gênero inválido.'
-     });
-  }
-
-  // Verifique se o tipo é válido (apenas "human" ou "alien" permitidos)
-  const validTypeValues = ['human', 'alien'];
-  if (!validTypeValues.includes(species.toLowerCase())) {
-     res.render("editCharacters", {
-        character,
-        error: 'Espécie inválida.'
-     });
-  }
-  const validation = true;
-  return validation; //Campos validados e aprovados para edição,continuará execução lógica no controller: editarPersonagens
-}
 // Função para paginação da tela principal
 
 async function paginateCharacters(req: Request) {
@@ -133,14 +73,12 @@ class firstController {
   //------------------edit page init---------------------//
 
   public async EditPageInit(req: Request, res: Response) {
-
      try {
 
-        const characterId = req.body.id;
-
-        const character = await prisma.character.findUnique({
+      const {id} = req.params;        
+      const character = await prisma.character.findUnique({
            where: {
-              id: Number(characterId),
+              id: Number(id),
            },
         });
 
@@ -185,7 +123,7 @@ class firstController {
         } = req.params;
         const Acharacter = await prisma.character.delete({
            where: {
-              id: Number(id)
+              id: parseInt(id)
            },
         });
         const characters = prisma.character.findMany();
@@ -281,15 +219,8 @@ class firstController {
   public async editarPersonagens(req: Request, res: Response) {
 
      try {
-
-        const {
-           characters,
-           totalPages,
-           page
-        } = await paginateCharacters(req);
-        const validation = await validatorCharacters(req, res);
-
-        const id = req.body.id;
+       //---------------VALIDAÇÃO-----------------//
+      const id = req.body.id;
         const name = req.body.name;
         const species = req.body.species;
         const status = req.body.status;
@@ -303,9 +234,65 @@ class firstController {
         const created = req.body.created;
         const url = req.body.url;
 
+      const character = await prisma.character.findFirst({
+         where: {
+            id: parseInt(id)
+         }
+      });
+      if (image && (!isUrl(image) || !image.toLowerCase().endsWith('.jpeg'))) {
+         return res.render("editCharacters", {
+              character,
+              error: 'URL da imagem inválida.'
+           });
+        }
+      
+        // Verifique se o URL é válido
+        if (url && !isUrl(url)) {
+         return  res.render("editCharacters", {
+              character,
+              error: 'URL inválida.'
+           });
+        }
+      
+        // Verifique se o status é válido (por exemplo, "Alive", "Dead" ou "unknown")
+        const validStatusValues = ['alive', 'dead', 'unknown'];
+        if (!validStatusValues.includes(status.toLowerCase())) {
+          return res.render("editCharacters", {
+              character,
+              error: 'Status inválido.'
+           });
+        }
+      
+        // Verifique se o gênero é válido (apenas "male" ou "female" permitidos)
+        const validGenderValues = ['male', 'female'];
+        if (!validGenderValues.includes(gender.toLowerCase())) {
+         return res.render("editCharacters", {
+              character,
+              error: 'Gênero inválido.'
+           });
+        }
+      
+        // Verifique se o tipo é válido (apenas "human" ou "alien" permitidos)
+        const validTypeValues = ['human', 'alien'];
+        if (!validTypeValues.includes(species.toLowerCase())) {
+         return res.render("editCharacters", {
+              character,
+              error: 'Espécie inválida.'
+           });
+        }
+        const validation = true; //Evitar erros inesperados
+         //--------------------------------DADOS VALIDADOS-------------------------------------//
+        const {
+           characters,
+           totalPages,
+           page
+        } = await paginateCharacters(req);
+        if(validation){
+        
+
         const updatedCharacter = await prisma.character.update({
            where: {
-              id: Number(id)
+              id: parseInt(id)
            },
            data: {
               name,
@@ -323,21 +310,22 @@ class firstController {
            },
         });
         const successMessage = "Edição feita com sucesso";
-        if (updatedCharacter && validation == true) {
            res.render("allCharacters", {
               characters,
               totalPages,
               page,
               successMessage
            });
-        } else {
+         } else {
+            const id = req.body.id;
+
            const err = {
               success: false,
               error: "Erro ao editar o personagem!",
            };
            const character = await prisma.character.findFirst({
               where: {
-                 id: id
+                 id: parseInt(id)
               }
            });
            res.render("editCharacters", {
@@ -346,18 +334,8 @@ class firstController {
            });
         }
 
-     } catch (error) {
-
-        const err = {
-           success: false,
-           error: "Erro ao editar o personagem.",
-        };
-
-        res.render("errorPage", {
-           err
-        });
-
-     } finally {
+     }
+      finally {
 
         await prisma.$disconnect();
 
