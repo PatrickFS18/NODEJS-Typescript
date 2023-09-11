@@ -101,6 +101,22 @@
          #delete:hover{
          background-color: #7e0000;
          }
+
+         #previousPage {
+          background-color: #007bff; 
+          color: #fff; 
+          padding: 10px 20px; 
+          border: none;
+          cursor: pointer; 
+          margin-right: 10px; 
+          }
+         #nextPage {
+         background-color: #007bff;
+         color: #fff; 
+         padding: 10px 20px; 
+         border: none;
+         cursor: pointer; 
+         }
        </style>
    </head>
 
@@ -162,15 +178,13 @@
                   <td><a href="<%= character.url %>"><%= character.url %></a></td>
                   <td>
                      <!-- form para editar um personagem -->
-                     <form action="/editPage" method="POST">
-                        <input type="hidden" name="id" value="<%= character.id %>"> 
+                     <form action="/editCharacter/<%= character.id %>" method="get">
                         <button type="submit" class="btn-edit" id="edit">Editar</button>
                      </form>
                   </td>
                   <td>
                      <!-- form para excluir um personagem -->
                      <form action="/delete/<%= character.id %>" method="get" class="form-delete">
-                        <!--<input type="hidden" name="id" value="<%= character.id %>">--> 
                         <button type="submit" class="btn-delete" id="delete">Excluir</button>
                      </form>
                   </td>
@@ -178,16 +192,16 @@
                <% }); %>
             </tbody>
          </table>
-         <% } else { %>
-         <p>Nenhum personagem encontrado.</p>
-         <% } %>
-      </div>
+         <% }%>
+         </div>
       <div class="pagination">
       <% if (characters.length >= 15) { %>
-      <button id="previousPage" onclick="carregarPaginaAnterior()">Anterior</button>
-      <button id="nextPage" onclick="carregarProximaPagina()">Próximo</button>
+         <button id="previousPage" onclick="carregarPaginaAnterior()">Anterior</button>
+         <button id="nextPage" onclick="carregarProximaPagina()">Próximo</button>
       <% } else { %>
-      <p>Nenhum personagem encontrado.</p>
+         <button id="previousPage" onclick="carregarPaginaAnterior()">Anterior</button>
+
+      <p style="margin-left: 5em;">Não há mais personagens</p>
       <% } %>
       <p style="display: none;" id="page"><%= page %></p>
    </body>
@@ -288,7 +302,7 @@
                 <td><a href="${character.url}">${character.url}</a></td>
                 <td>
                   <!-- Formulário para editar um personagem -->
-                  <form action="/editPage" method="POST">
+                  <form action="/editCharacter" method="get">
                     <input type="hidden" name="id" value="${character.id}">
                     <button type="submit" class="btn-edit" id="edit">Editar</button>
                   </form>
