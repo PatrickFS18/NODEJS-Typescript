@@ -23,7 +23,7 @@ Banco de dados utilizado: mysql
 1. Execute as migrações do banco de dados, que criará a base de dados e as tabelas, usando o seguinte comando:
 
 
--> npx prisma migrate
+-> npx prisma migrate dev
 
 ## Uso
 
