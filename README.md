@@ -19,8 +19,9 @@ Banco de dados utilizado: mysql
  exemplo (3.): -> DATABASE_URL =  "mysql://root:@localhost:3306/personagens", Onde `personagens` é o banco de dados
 
 ## Migração do Banco de Dados
-1. Crie um banco de dados mysql local chamado `personagens`;
-2. Execute as migrações do banco de dados usando o seguinte comando:
+
+1. Execute as migrações do banco de dados, que criará a base de dados e as tabelas, usando o seguinte comando:
+
 
 -> npx prisma migrate
 
