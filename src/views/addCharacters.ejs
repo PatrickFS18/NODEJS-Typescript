@@ -1,114 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-<style>
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-.container {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 500px;
-}
-
-h1 {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.character-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="url"],
-input[type="datetime-local"] {
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.btn-add {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.btn-add:hover {
-    background-color: #0056b3;
-}
-
-</style>
-</head>
-
-<body>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+      <style>
+         body {
+         font-family: Arial, sans-serif;
+         background-color: #f5f5f5;
+         margin: 0;
+         padding: 0;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         min-height: 100vh;
+         }
+         .container {
+         background-color: #fff;
+         border-radius: 8px;
+         padding: 20px;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         width: 80%;
+         max-width: 500px;
+         }
+         h1 {
+         font-size: 24px;
+         text-align: center;
+         margin-bottom: 20px;
+         }
+         .character-form {
+         display: flex;
+         flex-direction: column;
+         }
+         label {
+         font-weight: bold;
+         margin-bottom: 5px;
+         }
+         input[type="text"],
+         input[type="url"],
+         input[type="datetime-local"] {
+         padding: 8px;
+         margin-bottom: 15px;
+         border: 1px solid #ccc;
+         border-radius: 4px;
+         }
+         .btn-add {
+         background-color: #007bff;
+         color: #fff;
+         border: none;
+         padding: 10px 20px;
+         border-radius: 4px;
+         cursor: pointer;
+         font-weight: bold;
+         margin-top: 10px;
+         }
+         .btn-add:hover {
+         background-color: #0056b3;
+         }
+      </style>
+   </head>
+   <body>
       <div class="container">
-        <h1>Adicionar Novo Personagem</h1>
-        <form action="/addCharacter" method="POST" class="character-form">
+         <h1>Adicionar Novo Personagem</h1>
+         <form action="/addCharacter" method="POST" class="character-form">
             <label for="name">Nome:</label>
             <input type="text" id="name" name="name" required>
-
             <label for="species">Espécie:</label>
             <input type="text" id="species" name="species" required>
-
             <label for="status">Status:</label>
             <input type="text" id="status" name="status" required>
-
             <label for="type">Tipo:</label>
             <input type="text" id="type" name="type">
-
             <label for="gender">Gênero:</label>
             <input type="text" id="gender" name="gender" required>
-
             <label for="originName">Nome de Origem:</label>
             <input type="text" id="originName" name="originName" required>
-
             <label for="originLink">Link de Origem:</label>
             <input type="url" id="originLink" name="originLink">
-
             <label for="locationName">Nome de Localização:</label>
             <input type="text" id="locationName" name="locationName" required>
-
             <label for="locationLink">Link de Localização:</label>
             <input type="url" id="locationLink" name="locationLink" required>
-
             <label for="image">URL da Imagem:</label>
             <input type="url" id="image" name="image" required>
-
             <label for="url">URL:</label>
             <input type="url" id="url" name="url" required>
-
             <button type="submit" class="btn-add">Adicionar Personagem</button>
-        </form>
-    </div>
-</body>
-
+         </form>
+      </div>
+   </body>
 </html>

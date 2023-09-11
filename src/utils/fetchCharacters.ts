@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { PrismaClient } from '../../prisma/generated/client'; 
 
-
 const API_URL = 'https://rickandmortyapi.com/api/character';
 
 const prisma = new PrismaClient();
 
 export const insertCharacters = async () => {
+  
   try {
     // solicitação à API
     const response = await axios.get(API_URL);

@@ -9,7 +9,6 @@ const prisma = new PrismaClient();
 
 router.get('/', FirstController.listarPersonagens);
 router.get('/addCharacter', FirstController.InitPageAdd);
-
 router.get('/:page', FirstController.listarPersonagens);
 
 
