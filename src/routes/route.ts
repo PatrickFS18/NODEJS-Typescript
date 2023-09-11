@@ -10,16 +10,15 @@ const prisma = new PrismaClient();
 router.get('/', FirstController.listarPersonagens);
 router.get('/addCharacter', FirstController.InitPageAdd);
 router.get('/:page', FirstController.listarPersonagens);
-
+router.get('/editCharacter/:id', FirstController.EditPageInit);
 
   //--Delete--//
 router.get('/delete/:id', FirstController.deletarPersonagens);
 
 // ----------------------POST-------------------------------//
 
-router.post('/editPage', FirstController.EditPageInit);
 router.post('/addCharacter', FirstController.inserirPersonagens);
-router.post('/editCharacter', FirstController.editarPersonagens);
+router.post('/editarCharacter', FirstController.editarPersonagens);
 
 
 
