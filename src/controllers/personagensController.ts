@@ -15,22 +15,14 @@ async function validatorCharacters(req:Request,res:Response){
     }
   });
 
-      let date = new Date();
-      const name = req.body.name;
       const species = req.body.species;
       const status = req.body.status;
-      const type = req.body.type;
       const gender = req.body.gender;
-      const originName = req.body.originName;
-      const originLink = req.body.originLink;
-      const locationName = req.body.locationName;
-      const locationLink = req.body.locationLink;
       const image = req.body.image;
-      const created=date.toISOString();
       const url = req.body.url;
 
     // Verifique se a URL da imagem é válida
-    if (image && !isUrl(image)) {
+    if (image && (!isUrl(image) || !image.toLowerCase().endsWith('.jpeg'))) {
       res.render("editCharacters",{ character,error: 'URL da imagem inválida.' });
     }
 
@@ -98,8 +90,9 @@ class firstController {
       });
 
     } catch (error) {
-      console.error('Erro ao listar personagens:', error);
-      res.status(500).send('Erro ao listar personagens');
+
+      res.render('errorPage',{err:error});
+
     } finally {
       await prisma.$disconnect();
     }
@@ -125,10 +118,9 @@ class firstController {
 
       const err = {
         success: false,
-        error: "Ocorreu um erro!. Aguarde alguns instantes..",
+        error: "Ocorreu um erro para editar!",
       };
 
-      console.error("Ocorreu um erro!", error);
       res.render("errorPage", { err });
 
     } finally {
@@ -164,10 +156,9 @@ class firstController {
 
       const err = {
         success: false,
-        error: "Erro ao excluir o personagem. Aguarde alguns instantes..",
+        error: "Erro ao excluir o personagem.",
       };
 
-      console.error("Erro ao excluir o personagem:", error);
       res.render("errorPage", { err });
 
     } finally {
@@ -279,25 +270,27 @@ res.render('allCharacters', {
     });
     const successMessage="Edição feita com sucesso";
     if(updatedCharacter && validation==true){
-   res.redirect("/");
+      res.render("allCharacters", { characters,totalPages,page, successMessage });
     }else{
        const err = {
         success: false,
         error: "Erro ao editar o personagem!",
       };
-
-      console.error("Erro ao editar o personagem:", err.error);
-      res.render("errorPage", { err });
+      const character = await prisma.character.findFirst({
+        where: {
+          id: id
+        }
+      });
+      res.render("editCharacters",{character,err:err.error});
     }
     
   } catch (error) {
 
       const err = {
         success: false,
-        error: "Erro ao editar o personagem. Aguarde alguns instantes..",
+        error: "Erro ao editar o personagem.",
       };
 
-      console.error("Erro ao editar o personagem:", error);
       res.render("errorPage", { err });
     
     } finally {
