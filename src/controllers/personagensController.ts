@@ -11,7 +11,7 @@ import isUrl from 'is-url'; // Para validação de URL
 const prisma = new PrismaClient();
 
 
-//Função de validação dos campos de editar e criar personagem
+//Função de validação dos campos de editar personagem
 
 async function validatorCharacters(req: Request, res: Response) {
   const id = parseInt(req.body.id);

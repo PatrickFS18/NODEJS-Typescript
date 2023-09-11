@@ -61,6 +61,12 @@
    </head>
    <body>
       <div class="container">
+        <% if (typeof error !== 'undefined') { %>
+            <div class="alert alert-danger" style="font-size: larger;">
+              <%= error %>
+            </div>
+            
+          <% } %>
          <h1>Adicionar Novo Personagem</h1>
          <form action="/addCharacter" method="POST" class="character-form">
             <label for="name">Nome:</label>
